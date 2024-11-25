@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" styleClass="black" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.WelcomeController">
+   <children>
+      <Text fill="WHITE" layoutX="157.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a StyleMe" textAlignment="CENTER">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+
+      <Button fx:id="adminWayButton" layoutX="251.0" layoutY="280.0" mnemonicParsing="false" onAction="#setAdminWayButton" prefHeight="41.0" prefWidth="96.0" text="Iniciar">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
