@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.PeluqueroRegistro">
+    <children>
+        <Text layoutX="137.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro Peluquero" textAlignment="CENTER" wrappingWidth="326.0000076293946">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Text>
+        <TextField fx:id="nameField" layoutX="150.0" layoutY="105.0" prefHeight="40.0" prefWidth="300.0" promptText="Nombre">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="surnameField" layoutX="150.0" layoutY="155.0" prefHeight="40.0" prefWidth="300.0" promptText="Apellido">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="emailField" layoutX="150.0" layoutY="205.0" prefHeight="40.0" prefWidth="300.0" promptText="Correo">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="phoneField" layoutX="150.0" layoutY="255.0" prefHeight="40.0" prefWidth="300.0" promptText="Numero Telefónico">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="genderField" layoutX="150.0" layoutY="305.0" prefHeight="40.0" prefWidth="300.0" promptText="Especialidad">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <PasswordField fx:id="passwordField" layoutX="150.0" layoutY="355.0" prefHeight="40.0" prefWidth="300.0" promptText="Contraseña">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </PasswordField>
+        <Button fx:id="registerButton" layoutX="245.0" layoutY="431.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="110.0" style="-fx-background-color: #228be6;" text="Register" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
