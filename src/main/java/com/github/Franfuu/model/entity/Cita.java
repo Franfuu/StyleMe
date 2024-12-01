@@ -13,12 +13,20 @@ public class Cita {
     public Cita() {
     }
 
+    public Cita(String fecha, String hora, String observacion, int idCliente, int idPeluquero) {
+        Fecha = fecha;
+        Hora = hora;
+        Observacion = observacion;
+        IdCliente = idCliente;
+        IdPeluquero = idPeluquero;
+    }
+
     public int getId() {
         return Id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.Id = id;
     }
 
     public String getFecha() {
@@ -26,7 +34,7 @@ public class Cita {
     }
 
     public void setFecha(String fecha) {
-        Fecha = fecha;
+        this.Fecha = fecha;
     }
 
     public String getHora() {
@@ -34,7 +42,7 @@ public class Cita {
     }
 
     public void setHora(String hora) {
-        Hora = hora;
+        this.Hora = hora;
     }
 
     public String getObservacion() {
@@ -42,7 +50,7 @@ public class Cita {
     }
 
     public void setObservacion(String observacion) {
-        Observacion = observacion;
+        this.Observacion = observacion;
     }
 
     public int getIdCliente() {
@@ -50,7 +58,7 @@ public class Cita {
     }
 
     public void setIdCliente(int idCliente) {
-        IdCliente = idCliente;
+        this.IdCliente = idCliente;
     }
 
     public int getIdPeluquero() {
@@ -58,7 +66,7 @@ public class Cita {
     }
 
     public void setIdPeluquero(int idPeluquero) {
-        IdPeluquero = idPeluquero;
+        this.IdPeluquero = idPeluquero;
     }
 
     @Override

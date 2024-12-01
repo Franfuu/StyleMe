@@ -14,8 +14,7 @@ public class Peluquero {
     public Peluquero() {
     }
 
-    public Peluquero(int id, String nombre, String apellido, String telefono, String correo, String especialidad, String contraseña) {
-        Id = id;
+    public Peluquero(String nombre, String apellido, String telefono, String correo, String especialidad, String contraseña) {
         Nombre = nombre;
         Apellido = apellido;
         Telefono = telefono;

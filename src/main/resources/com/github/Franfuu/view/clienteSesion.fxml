@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.github.Franfuu.view.ClienteSesion"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="340.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.ClienteSesion">
+        <children>
+            <Text layoutX="104.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio Sesión Cliente" textAlignment="CENTER" wrappingWidth="392.00000000000006">
+                <font>
+                    <Font size="36.0" />
+                </font>
+            </Text>
+            <TextField fx:id="emailField" layoutX="150.0" layoutY="105.0" prefHeight="40.0" prefWidth="300.0" promptText="Correo">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </TextField>
+            <PasswordField fx:id="passwordField" layoutX="150.0" layoutY="160.0" prefHeight="40.0" prefWidth="300.0" promptText="Contraseña">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </PasswordField>
+            <Button fx:id="registerButton" layoutX="235.0" layoutY="237.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="47" prefWidth="131.0" style="-fx-background-color: #228be6;" text="Iniciar Sesión" textFill="WHITE">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Button>
+        </children>
 
 </AnchorPane>
