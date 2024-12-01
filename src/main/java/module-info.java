@@ -5,6 +5,7 @@ module com.github.Franfuu {
     requires org.mariadb.jdbc;
     requires java.sql;
     requires org.checkerframework.checker.qual;
+    requires java.desktop;
 
     opens com.github.Franfuu.model.connection to java.xml.bind;
     opens com.github.Franfuu to javafx.fxml;

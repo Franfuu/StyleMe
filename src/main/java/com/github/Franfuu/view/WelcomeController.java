@@ -31,7 +31,7 @@ public class WelcomeController extends Controller implements Initializable {
     }
 
     public void setAdminWayButton() throws Exception {
-        App.currentController.changeScene(Scenes.INICLI, null);
+        App.currentController.changeScene(Scenes.ELEGIROL, null);
     }
 
 }

@@ -39,7 +39,7 @@ public class ClienteSesion extends Controller implements Initializable {
         String password = passwordField.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Error", "Email and password must be filled out.");
+            showAlert("Error", "No puedes dejar campos vacíos.");
             return;
         }
 
@@ -50,16 +50,35 @@ public class ClienteSesion extends Controller implements Initializable {
 
             ControlSesion.getInstance().setLoggedInClienteId(cliente.getId());
 
-            showAlert("Success", "Login successful.");
+            showAlert("Sesión Iniciada", "Sesión iniciada correctamente.");
             try {
                 App.currentController.changeScene(Scenes.CLIENTELISTA, cliente.getNombre());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            showAlert("Error", "Invalid email or password.");
+            showAlert("Error", "Credenciales incorrectas.");
         }
     }
+
+    @FXML
+    private void onRegister() {
+        try {
+            App.currentController.changeScene(Scenes.REGCLI, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onBack() {
+        try {
+            App.currentController.changeScene(Scenes.ELEGIROL, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

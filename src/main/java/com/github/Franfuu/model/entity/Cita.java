@@ -1,14 +1,23 @@
 package com.github.Franfuu.model.entity;
 
+import com.github.Franfuu.model.dao.PeluqueroDAO;
+import javafx.scene.control.Button;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Cita {
+public class Cita  {
     private int Id;
     private String Fecha;
     private String Hora;
     private String Observacion;
     private int IdCliente;
     private int IdPeluquero;
+    private Button acciones;
+    private Button servicio;
+    private Button eliminarServicio;
+    private List<Servicio> servicios = new ArrayList<>();
 
     public Cita() {
     }
@@ -19,6 +28,35 @@ public class Cita {
         Observacion = observacion;
         IdCliente = idCliente;
         IdPeluquero = idPeluquero;
+    }
+
+
+    public Button getEliminarServicio() {
+        return eliminarServicio;
+    }
+
+    public void setEliminarServicio(Button eliminarServicio) {
+        this.eliminarServicio = eliminarServicio;
+    }
+
+    public void addServicio(Servicio servicio) {
+        this.servicios.add(servicio);
+    }
+
+    public Button getAcciones() {
+        return acciones;
+    }
+
+    public void setAcciones(Button acciones) {
+        this.acciones = acciones;
+    }
+
+    public Button getServicios() {
+        return servicio;
+    }
+
+    public void setServicios(Button servicios) {
+        this.servicio = servicios;
     }
 
     public int getId() {
@@ -93,4 +131,8 @@ public class Cita {
                 ", IdPeluquero=" + IdPeluquero +
                 '}';
     }
+
+
+
+
 }

@@ -21,7 +21,7 @@
 
         <Label layoutX="50.0" layoutY="110.0" text="Observación:"/>
         <TextField fx:id="observacionField" layoutX="150.0" layoutY="110.0"/>
-
+        <Button text="Volver" layoutX="20.0" layoutY="340.0" onAction="#onVolver"/>
         <Button fx:id="createCitaButton" layoutX="150.0" layoutY="150.0" text="Crear Cita"/>
     </children>
 </AnchorPane>

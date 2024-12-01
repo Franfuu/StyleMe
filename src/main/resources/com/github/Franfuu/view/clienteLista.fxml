@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Button?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.github.Franfuu.view.ClienteLista"
@@ -17,5 +18,6 @@
                 <TableColumn fx:id="phoneColumn" text="Phone" prefWidth="180.0" />
             </columns>
         </TableView>
+        <Button fx:id="showAppointmentsButton" text="Show Appointments" onAction="#onEECitas"/>
     </children>
 </AnchorPane>
