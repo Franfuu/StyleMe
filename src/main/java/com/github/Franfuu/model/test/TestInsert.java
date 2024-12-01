@@ -1,14 +1,16 @@
 package com.github.Franfuu.model.test;
 
 import com.github.Franfuu.model.dao.ClienteDAO;
+import com.github.Franfuu.model.dao.PeluqueroDAO;
 import com.github.Franfuu.model.entity.Cliente;
+import com.github.Franfuu.model.entity.Peluquero;
 
 import java.sql.SQLException;
 
 public class TestInsert {
     public static void main(String[] args) {
-        Cliente c = new Cliente("Franci", "Furias", "123456789", "a@a.com", "Helicoptero de combate", "12345678");
+        Peluquero c = new Peluquero("Franci", "Furias", "123456789", "a@a.com", "Helicoptero de combate", "12345678");
 
-            ClienteDAO.build().save(c);
+            PeluqueroDAO.build().save(c);
     }
 }

@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" styleClass="black" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.WelcomeController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: rgb(255,255,255);" styleClass="black" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.WelcomeController">
    <children>
-      <Text fill="WHITE" layoutX="157.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a StyleMe" textAlignment="CENTER">
+      <Text fill="#000000" layoutX="157.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a StyleMe" textAlignment="CENTER">
          <font>
             <Font size="26.0" />
          </font>

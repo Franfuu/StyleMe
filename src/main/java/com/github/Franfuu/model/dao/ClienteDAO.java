@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,6 +65,33 @@ public class ClienteDAO {
         }
         return result;
     }
+
+    private static final String FIND_BY_EMAIL_AND_PASSWORD = "SELECT * FROM cliente WHERE Correo = ? AND Contraseña = ?";
+
+    public Cliente findByEmailAndPassword(String email, String password) {
+        Cliente cliente = null;
+        try (Connection conn = ConnectionMariaDB.getConnection();
+             PreparedStatement pst = conn.prepareStatement(FIND_BY_EMAIL_AND_PASSWORD)) {
+            pst.setString(1, email);
+            pst.setString(2, hashPassword(password));
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    cliente = new Cliente();
+                    cliente.setId(rs.getInt("Id"));
+                    cliente.setNombre(rs.getString("Nombre"));
+                    cliente.setApellido(rs.getString("Apellido"));
+                    cliente.setTelefono(rs.getString("Telefono"));
+                    cliente.setCorreo(rs.getString("Correo"));
+                    cliente.setGenero(rs.getString("Genero"));
+                    cliente.setContraseña(rs.getString("Contraseña"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cliente;
+    }
+
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

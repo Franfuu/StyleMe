@@ -10,8 +10,7 @@ public class Servicio {
     public Servicio() {
     }
 
-    public Servicio(int id, String nombre, String precio) {
-        Id = id;
+    public Servicio( String nombre, String precio) {
         Nombre = nombre;
         Precio = precio;
     }

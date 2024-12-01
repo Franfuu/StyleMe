@@ -3,24 +3,79 @@ package com.github.Franfuu.model.dao;
 import com.github.Franfuu.model.connection.ConnectionMariaDB;
 import com.github.Franfuu.model.entity.Cita;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CitaDAO {
-    private static final String INSERT = "INSERT INTO cita (Fecha, Hora, Observacion, Id_cliente, Id_Peluquero) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO cita (Fecha, Hora, Observacion, Id_Cliente, Id_Peluquero) VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE cita SET Fecha = ?, Hora = ?, Observacion = ?, Id_Cliente = ?, Id_Peluquero = ? WHERE Id = ?";
     private static final String FINDALL = "SELECT Id FROM cita";
     private static final String FINDBYID = "SELECT Id FROM cita WHERE Id = ?";
     private static final String DELETE = "DELETE FROM cita WHERE Id = ?";
-    //private static final String FINDCITASBYCLIENTE = "SELECT * FROM cita WHERE Id_Cliente = ?";
-    //private static final String FINDCITASBYPELUQUERO = "SELECT * FROM cita WHERE Id_Peluquero = ?";
-    //private static final String FINDCITASBYFECHA = "SELECT * FROM cita WHERE Fecha = ?";
-    //private static final String FINDCITASBYHORA = "SELECT * FROM cita WHERE Hora = ?";
 
     public CitaDAO() {
     }
+
+
+    public boolean createCita(Cita cita) {
+        try (Connection conn = ConnectionMariaDB.getConnection()) {
+            if (conn == null || conn.isClosed()) {
+                throw new SQLException("Connection is closed or null");
+            }
+
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement pstCita = conn.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                pstCita.setString(1, cita.getFecha());
+                pstCita.setString(2, cita.getHora());
+                pstCita.setString(3, cita.getObservacion());
+                pstCita.setInt(4, cita.getIdCliente());
+                pstCita.setInt(5, cita.getIdPeluquero());
+                pstCita.executeUpdate();
+
+                try (ResultSet generatedKeys = pstCita.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int citaId = generatedKeys.getInt(1);
+                    } else {
+                        conn.rollback();
+                        return false;
+                    }
+                }
+
+                conn.commit();
+                return true;
+            } catch (SQLException e) {
+                conn.rollback();
+                e.printStackTrace();
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean clienteExists(int clienteId) {
+        try (Connection conn = ConnectionMariaDB.getConnection()) {
+            if (conn == null || conn.isClosed()) {
+                throw new SQLException("Connection is closed or null");
+            }
+            try (PreparedStatement pst = conn.prepareStatement("SELECT COUNT(*) FROM cliente WHERE Id = ?")) {
+                pst.setInt(1, clienteId);
+                try (ResultSet rs = pst.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) > 0;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
     public Cita save(Cita entity) {
         Cita result = new Cita();
         if (entity == null || entity.getId() != 0) return result;
@@ -86,12 +141,11 @@ public class CitaDAO {
         }
     }
 
-
     public static List<Cita> findAll() {
-        List<Cita> result = null;
+        List<Cita> result = new ArrayList<>();
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDALL)) {
             try (ResultSet rs = pst.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     Cita c = new Cita();
                     c.setId(rs.getInt("Id"));
                     c.setFecha(rs.getString("Fecha"));
@@ -99,6 +153,7 @@ public class CitaDAO {
                     c.setObservacion(rs.getString("Observacion"));
                     c.setIdCliente(rs.getInt("Id_Cliente"));
                     c.setIdPeluquero(rs.getInt("Id_Peluquero"));
+                    result.add(c);
                 }
             }
         } catch (SQLException e) {
