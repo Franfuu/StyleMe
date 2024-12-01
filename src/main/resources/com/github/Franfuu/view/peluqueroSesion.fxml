@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="345.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.PeluqueroSesion">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.PeluqueroSesion">
     <children>
         <Text layoutX="104.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio Sesión Peluquero" textAlignment="CENTER" wrappingWidth="392.00000000000006">
             <font>
@@ -24,10 +21,13 @@
                 <Font size="18.0" />
             </font>
         </PasswordField>
-        <Button fx:id="loginButton" layoutX="231.0" layoutY="229.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="47" prefWidth="138.0" style="-fx-background-color: #228be6;" text="Iniciar Sesión" textFill="WHITE">
+        <Button fx:id="registerButton" layoutX="235.0" layoutY="237.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="47" prefWidth="131.0" style="-fx-background-color: #228be6;" text="Iniciar Sesión" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
+        <Label layoutX="400.0" layoutY="295.0" text="¿No tienes cuenta?" />
+        <Button layoutX="512.0" layoutY="291.0" onAction="#onRegister" text="Regístrate" />
+        <Button layoutX="522.0" layoutY="25.0" onAction="#onBack" text="Volver" />
     </children>
 </AnchorPane>

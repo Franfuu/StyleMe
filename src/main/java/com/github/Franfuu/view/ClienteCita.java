@@ -1,16 +1,13 @@
 package com.github.Franfuu.view;
 
+import com.github.Franfuu.App;
 import com.github.Franfuu.model.dao.CitaDAO;
 import com.github.Franfuu.model.entity.Cita;
 import com.github.Franfuu.model.entity.ControlSesion;
 import com.github.Franfuu.model.entity.Peluquero;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.converter.LocalTimeStringConverter;
 
 import java.net.URL;
@@ -29,6 +26,8 @@ public class ClienteCita extends Controller implements Initializable {
     private TextField observacionField;
     @FXML
     private Button createCitaButton;
+    @FXML
+    private Button volverButton;
 
     private Peluquero selectedPeluquero;
 
@@ -41,7 +40,6 @@ public class ClienteCita extends Controller implements Initializable {
 
     @Override
     public void onClose(Object output) {
-        // Cleanup if needed
     }
 
     @Override
@@ -54,18 +52,18 @@ public class ClienteCita extends Controller implements Initializable {
         // Configure the Spinner for time selection
         SpinnerValueFactory<LocalTime> valueFactory = new SpinnerValueFactory<LocalTime>() {
             {
-                setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("HH:mm"), null));
+                setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("HH:00"), null));
                 setValue(LocalTime.now());
             }
 
             @Override
             public void decrement(int steps) {
-                setValue(getValue().minusMinutes(steps));
+                setValue(getValue().minusHours(steps));
             }
 
             @Override
             public void increment(int steps) {
-                setValue(getValue().plusMinutes(steps));
+                setValue(getValue().plusHours(steps));
             }
         };
         horaSpinner.setValueFactory(valueFactory);
@@ -74,13 +72,25 @@ public class ClienteCita extends Controller implements Initializable {
     private void createCita() {
         int clienteId = ControlSesion.getInstance().getLoggedInClienteId();
         if (clienteId <= 0) {
-            System.out.println("No cliente is logged in or invalid cliente ID");
+            showAlert("Error", "No hay cliente logueado o el ID del cliente es inválido");
+            return;
+        }
+
+        LocalDate selectedDate = fechaDatePicker.getValue();
+        LocalTime selectedTime = horaSpinner.getValue();
+        if (selectedDate.equals(LocalDate.now()) && selectedTime.isBefore(LocalTime.now())) {
+            showAlert("Error", "No se puede crear una cita para una hora pasada");
+            return;
+        }
+
+        if (selectedDate.isBefore(LocalDate.now()) || (selectedDate.equals(LocalDate.now()) && selectedTime.isBefore(LocalTime.now()))) {
+            showAlert("Error", "No se puede crear una cita para una fecha u hora pasada");
             return;
         }
 
         Cita cita = new Cita();
-        cita.setFecha(fechaDatePicker.getValue().toString());
-        cita.setHora(horaSpinner.getValue().toString());
+        cita.setFecha(selectedDate.toString());
+        cita.setHora(selectedTime.getHour() + ":00");
         cita.setObservacion(observacionField.getText());
         cita.setIdCliente(clienteId);
         cita.setIdPeluquero(selectedPeluquero.getId());
@@ -89,9 +99,24 @@ public class ClienteCita extends Controller implements Initializable {
         boolean success = citaDAO.createCita(cita);
 
         if (success) {
-            System.out.println("Cita created successfully");
+            showAlert("Éxito", "Cita creada exitosamente");
         } else {
-            System.out.println("Failed to create Cita");
+            showAlert("Error", "Error al crear la cita");
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    @FXML
+    private void onVolver() {
+        try {
+            App.currentController.changeScene(Scenes.CLIENTELISTA, null);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

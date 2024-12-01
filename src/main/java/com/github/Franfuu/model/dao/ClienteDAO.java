@@ -156,4 +156,34 @@ public class ClienteDAO {
     public static ClienteDAO build() {
         return new ClienteDAO();
     }
+
+    public boolean emailExists(String email) {
+        String query = "SELECT COUNT(*) FROM cliente WHERE Correo = ?";
+        try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(query)) {
+            pst.setString(1, email);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean phoneExists(String phone) {
+        String query = "SELECT COUNT(*) FROM cliente WHERE Telefono = ?";
+        try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(query)) {
+            pst.setString(1, phone);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

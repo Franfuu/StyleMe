@@ -1,15 +1,16 @@
 package com.github.Franfuu.view;
 
 import com.github.Franfuu.App;
+import com.github.Franfuu.model.dao.CitaDAO;
 import com.github.Franfuu.model.dao.PeluqueroDAO;
+import com.github.Franfuu.model.entity.Cita;
+import com.github.Franfuu.model.entity.ControlSesion;
 import com.github.Franfuu.model.entity.Peluquero;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -33,13 +34,12 @@ public class ClienteLista extends Controller implements Initializable {
     @FXML
     private TableColumn<Peluquero, String> phoneColumn;
 
+
     private ObservableList<Peluquero> peluqueroList;
 
     @Override
     public void onOpen(Object input) throws Exception {
-        if (input instanceof String) {
-            clientNameLabel.setText((String) input);
-        }
+
         loadPeluqueroData();
     }
 
@@ -65,11 +65,27 @@ public class ClienteLista extends Controller implements Initializable {
         });
     }
 
+    @FXML
+    private void onEECitas() {
+        try {
+
+            App.currentController.changeScene(Scenes.CLIENTEEECITA, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void loadPeluqueroData() {
         PeluqueroDAO peluqueroDAO = new PeluqueroDAO();
         List<Peluquero> peluqueros = peluqueroDAO.findAll();
         peluqueroList = FXCollections.observableArrayList(peluqueros);
         peluqueroTable.setItems(peluqueroList);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

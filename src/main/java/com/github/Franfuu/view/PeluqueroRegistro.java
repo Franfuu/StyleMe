@@ -1,5 +1,7 @@
 package com.github.Franfuu.view;
 
+import com.github.Franfuu.App;
+import com.github.Franfuu.model.dao.ClienteDAO;
 import com.github.Franfuu.model.dao.PeluqueroDAO;
 import com.github.Franfuu.model.entity.Peluquero;
 import javafx.fxml.FXML;
@@ -27,7 +29,7 @@ public class PeluqueroRegistro extends Controller implements Initializable {
     private TextField phoneField;
 
     @FXML
-    private TextField genderField;
+    private TextField specialityField;
 
     @FXML
     private PasswordField passwordField;
@@ -38,11 +40,22 @@ public class PeluqueroRegistro extends Controller implements Initializable {
         String surname = surnameField.getText();
         String email = emailField.getText();
         String phone = phoneField.getText();
-        String gender = genderField.getText();
+        String speciality = specialityField.getText();
         String password = passwordField.getText();
 
-        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || phone.isEmpty() || gender.isEmpty() || password.isEmpty()) {
-            showAlert("Error", "Completa todos lo campos.");
+        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || phone.isEmpty() || speciality.isEmpty() || password.isEmpty() || !isValidEmail(email) || phone.length() < 9 || password.length() < 8) {
+            showAlert("Error", "No puede dejar ningun campo vacio, el correo debe ser valido, el telefono debe tener al menos 9 digitos y la contraseña debe tener al menos 8 caracteres.");
+            return;
+        }
+
+        PeluqueroDAO peluqueroDAO = new PeluqueroDAO();
+        if (peluqueroDAO.emailExists(email)) {
+            showAlert("Error", "El correo ya está registrado.");
+            return;
+        }
+
+        if (peluqueroDAO.phoneExists(phone)) {
+            showAlert("Error", "El número de teléfono ya está registrado.");
             return;
         }
 
@@ -51,13 +64,37 @@ public class PeluqueroRegistro extends Controller implements Initializable {
         peluquero.setApellido(surname);
         peluquero.setCorreo(email);
         peluquero.setTelefono(phone);
-        peluquero.setEspecialidad(gender);
+        peluquero.setEspecialidad(speciality);
         peluquero.setContraseña(password);
 
-        PeluqueroDAO peluqueroDAO = new PeluqueroDAO();
+
         peluqueroDAO.save(peluquero);
 
         showAlert("Success", "Peluquero registered successfully.");
+
+        try {
+            App.currentController.changeScene(Scenes.INIPELU, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onLogin() {
+        try {
+            App.currentController.changeScene(Scenes.INICLI, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onBack() {
+        try {
+            App.currentController.changeScene(Scenes.WELCOME, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(String title, String message) {
@@ -67,6 +104,10 @@ public class PeluqueroRegistro extends Controller implements Initializable {
         alert.showAndWait();
     }
 
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
     @Override
     public void onOpen(Object input) throws Exception {
 

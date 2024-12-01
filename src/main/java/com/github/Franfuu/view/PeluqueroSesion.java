@@ -39,7 +39,7 @@ public class PeluqueroSesion extends Controller implements Initializable {
         String password = passwordField.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Error", "Email and password must be filled out.");
+            showAlert("Error", "No puedes dejar campos vacíos.");
             return;
         }
 
@@ -47,14 +47,29 @@ public class PeluqueroSesion extends Controller implements Initializable {
         Peluquero peluquero = peluqueroDAO.findByEmailAndPassword(email, password);
 
         if (peluquero != null) {
-
             ControlSesion.getInstance().setLoggedInClienteId(peluquero.getId());
-
-            showAlert("Success", "Login successful.");
-            App.currentController.changeScene(Scenes.WELCOME, null);
-
+            showAlert("Sesión Iniciada", "Sesión iniciada correctamente.");
+            App.currentController.changeScene(Scenes.PELUCITA, null);
         } else {
-            showAlert("Error", "Invalid email or password.");
+            showAlert("Error", "Credenciales incorrectas.");
+        }
+    }
+
+    @FXML
+    private void onRegister() {
+        try {
+            App.currentController.changeScene(Scenes.REGPELU, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onBack() {
+        try {
+            App.currentController.changeScene(Scenes.ELEGIROL, null);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
