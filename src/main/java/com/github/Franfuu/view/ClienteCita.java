@@ -19,20 +19,21 @@ import java.util.ResourceBundle;
 public class ClienteCita extends Controller implements Initializable {
 
     @FXML
-    private DatePicker fechaDatePicker;
+    private DatePicker fechaDatePicker; // Selector de fecha
     @FXML
-    private Spinner<LocalTime> horaSpinner;
+    private Spinner<LocalTime> horaSpinner; // Selector de hora
     @FXML
-    private TextField observacionField;
+    private TextField observacionField; // Campo de texto para observaciones
     @FXML
-    private Button createCitaButton;
+    private Button createCitaButton; // Botón para crear cita
     @FXML
-    private Button volverButton;
+    private Button volverButton; // Botón para volver
 
-    private Peluquero selectedPeluquero;
+    private Peluquero selectedPeluquero; // Peluquero seleccionado
 
     @Override
     public void onOpen(Object input) throws Exception {
+        // Método llamado al abrir la vista
         if (input instanceof Peluquero) {
             this.selectedPeluquero = (Peluquero) input;
         }
@@ -40,16 +41,18 @@ public class ClienteCita extends Controller implements Initializable {
 
     @Override
     public void onClose(Object output) {
+        // Método llamado al cerrar la vista
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Método llamado automáticamente después de cargar el archivo FXML
         createCitaButton.setOnAction(event -> createCita());
 
-        // Configure the DatePicker
+        // Configurar el DatePicker
         fechaDatePicker.setValue(LocalDate.now());
 
-        // Configure the Spinner for time selection
+        // Configurar el Spinner para la selección de hora
         SpinnerValueFactory<LocalTime> valueFactory = new SpinnerValueFactory<LocalTime>() {
             {
                 setConverter(new LocalTimeStringConverter(DateTimeFormatter.ofPattern("HH:00"), null));
@@ -70,6 +73,7 @@ public class ClienteCita extends Controller implements Initializable {
     }
 
     private void createCita() {
+        // Crear una nueva cita
         int clienteId = ControlSesion.getInstance().getLoggedInClienteId();
         if (clienteId <= 0) {
             showAlert("Error", "No hay cliente logueado o el ID del cliente es inválido");
@@ -106,13 +110,16 @@ public class ClienteCita extends Controller implements Initializable {
     }
 
     private void showAlert(String title, String message) {
+        // Mostrar una alerta con el título y mensaje especificados
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     @FXML
     private void onVolver() {
+        // Volver a la escena anterior
         try {
             App.currentController.changeScene(Scenes.CLIENTELISTA, null);
         } catch (Exception e) {

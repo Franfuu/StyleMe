@@ -11,21 +11,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PeluqueroDAO {
-private static final String FINDALL = "SELECT * FROM peluquero";
-private static final String FINDBYID = "SELECT * FROM peluquero WHERE Id = ?";
-private static final String INSERT = "INSERT INTO peluquero (Nombre, Apellido, Telefono, Correo, Especialidad, Contraseña) VALUES (?,?,?,?,?,?)";
-private static final String UPDATE = "UPDATE peluquero SET Nombre=?, Apellido=?, Telefono=?, Correo=?, Direccion=?, Especialidad = ?, Contraseña=? WHERE Id=?";
-private static final String DELETE = "DELETE FROM peluquero WHERE Id=?";
+    // Consulta SQL para recuperar todos los peluqueros
+    private static final String FINDALL = "SELECT * FROM peluquero";
+    // Consulta SQL para buscar un peluquero por su ID
+    private static final String FINDBYID = "SELECT * FROM peluquero WHERE Id = ?";
+    // Consulta SQL para insertar un nuevo peluquero
+    private static final String INSERT = "INSERT INTO peluquero (Nombre, Apellido, Telefono, Correo, Especialidad, Contraseña) VALUES (?,?,?,?,?,?)";
+    // Consulta SQL para actualizar un peluquero existente
+    private static final String UPDATE = "UPDATE peluquero SET Nombre=?, Apellido=?, Telefono=?, Correo=?, Direccion=?, Especialidad = ?, Contraseña=? WHERE Id=?";
+    // Consulta SQL para eliminar un peluquero por su ID
+    private static final String DELETE = "DELETE FROM peluquero WHERE Id=?";
+    // Consulta SQL para buscar un peluquero por su correo y contraseña
     private static final String FINDBYEMAILANDPASSWORD = "SELECT * FROM peluquero WHERE Correo = ? AND Contraseña = ?";
-public PeluqueroDAO() {
-}
 
+    public PeluqueroDAO() {
+    }
+
+    // Guarda un nuevo peluquero en la base de datos
     public Peluquero save(Peluquero entity) {
         Peluquero result = new Peluquero();
         if (entity == null || entity.getId() != 0) return result;
@@ -46,6 +52,8 @@ public PeluqueroDAO() {
         }
         return result;
     }
+
+    // Busca un peluquero por su ID
     public Peluquero findById(Integer Id) {
         Peluquero result = null;
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYID)) {
@@ -68,7 +76,7 @@ public PeluqueroDAO() {
         return result;
     }
 
-
+    // Busca un peluquero por su correo y contraseña
     public Peluquero findByEmailAndPassword(String email, String password) {
         Peluquero peluquero = null;
         try (Connection conn = ConnectionMariaDB.getConnection();
@@ -92,6 +100,8 @@ public PeluqueroDAO() {
         }
         return peluquero;
     }
+
+    // Hashea la contraseña usando SHA-256
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -107,6 +117,7 @@ public PeluqueroDAO() {
         }
     }
 
+    // Actualiza un peluquero existente en la base de datos
     public Peluquero update(Peluquero entity) {
         Peluquero result = new Peluquero();
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE)) {
@@ -124,6 +135,7 @@ public PeluqueroDAO() {
         return result;
     }
 
+    // Elimina un peluquero de la base de datos por su ID
     public boolean delete(int Id) throws SQLException {
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
             pst.setInt(1, Id);
@@ -132,6 +144,7 @@ public PeluqueroDAO() {
         }
     }
 
+    // Recupera todos los peluqueros de la base de datos
     public List<Peluquero> findAll() {
         List<Peluquero> peluqueros = new ArrayList<>();
         try (Connection conn = ConnectionMariaDB.getConnection()) {
@@ -155,49 +168,12 @@ public PeluqueroDAO() {
         return peluqueros;
     }
 
+    // Crea una nueva instancia del DAO
     public static PeluqueroDAO build() {
         return new PeluqueroDAO();
     }
 
-    public List<String> findAvailableDatesByPeluqueroId(int peluqueroId) {
-        List<String> availableDates = new ArrayList<>();
-        try (Connection conn = ConnectionMariaDB.getConnection()) {
-            if (conn == null || conn.isClosed()) {
-                throw new SQLException("Connection is closed or null");
-            }
-            try (PreparedStatement pst = conn.prepareStatement("SELECT DISTINCT Fecha FROM cita WHERE Id_Peluquero = ?")) {
-                pst.setInt(1, peluqueroId);
-                try (ResultSet rs = pst.executeQuery()) {
-                    while (rs.next()) {
-                        availableDates.add(rs.getString("Fecha"));
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return availableDates;
-    }
-
-    public List<String> findAvailableTimesByPeluqueroId(int peluqueroId) {
-        List<String> availableTimes = new ArrayList<>();
-        try (Connection conn = ConnectionMariaDB.getConnection()) {
-            if (conn == null || conn.isClosed()) {
-                throw new SQLException("Connection is closed or null");
-            }
-            try (PreparedStatement pst = conn.prepareStatement("SELECT DISTINCT Hora FROM cita WHERE Id_Peluquero = ?")) {
-                pst.setInt(1, peluqueroId);
-                try (ResultSet rs = pst.executeQuery()) {
-                    while (rs.next()) {
-                        availableTimes.add(rs.getString("Hora"));
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return availableTimes;
-    }
+    // Verifica si un correo ya está registrado en la base de datos
     public boolean emailExists(String email) {
         String query = "SELECT COUNT(*) FROM peluquero WHERE Correo = ?";
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(query)) {
@@ -213,6 +189,7 @@ public PeluqueroDAO() {
         return false;
     }
 
+    // Verifica si un número de teléfono ya está registrado en la base de datos
     public boolean phoneExists(String phone) {
         String query = "SELECT COUNT(*) FROM peluquero WHERE Telefono = ?";
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(query)) {

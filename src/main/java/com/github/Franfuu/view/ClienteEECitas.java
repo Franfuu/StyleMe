@@ -19,35 +19,37 @@ import java.util.ResourceBundle;
 public class ClienteEECitas extends Controller implements Initializable {
 
     @FXML
-    private TableView<Cita> citasTable;
+    private TableView<Cita> citasTable; // Tabla para mostrar las citas
 
     @FXML
-    private TableColumn<Cita, String> fechaColumn;
+    private TableColumn<Cita, String> fechaColumn; // Columna para la fecha de la cita
 
     @FXML
-    private TableColumn<Cita, String> horaColumn;
+    private TableColumn<Cita, String> horaColumn; // Columna para la hora de la cita
 
     @FXML
-    private TableColumn<Cita, String> peluqueroColumn;
+    private TableColumn<Cita, String> peluqueroColumn; // Columna para el peluquero de la cita
 
     @FXML
-    private TableColumn<Cita, Void> deleteColumn;
+    private TableColumn<Cita, Void> deleteColumn; // Columna para el botón de eliminar
 
-    private ObservableList<Cita> citasList;
+    private ObservableList<Cita> citasList; // Lista observable de citas
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Configurar las columnas de la tabla
         fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         horaColumn.setCellValueFactory(new PropertyValueFactory<>("hora"));
         peluqueroColumn.setCellValueFactory(new PropertyValueFactory<>("idPeluquero"));
 
-        addButtonToTable();
-        addDoubleClickToEdit();
+        addButtonToTable(); // Añadir botón de eliminar a la tabla
+        addDoubleClickToEdit(); // Añadir doble clic para editar
 
-        loadCitas();
+        loadCitas(); // Cargar las citas
     }
 
     private void loadCitas() {
+        // Cargar las citas del cliente logueado
         int clienteId = ControlSesion.getInstance().getLoggedInClienteId();
         CitaDAO citaDAO = new CitaDAO();
         List<Cita> citas = citaDAO.findByClienteId(clienteId);
@@ -56,6 +58,7 @@ public class ClienteEECitas extends Controller implements Initializable {
     }
 
     private void addButtonToTable() {
+        // Añadir botón de eliminar a cada fila de la tabla
         deleteColumn.setCellFactory(param -> new TableCell<>() {
             private final Button deleteButton = new Button("Eliminar");
 
@@ -79,6 +82,7 @@ public class ClienteEECitas extends Controller implements Initializable {
     }
 
     private void addDoubleClickToEdit() {
+        // Añadir doble clic para editar la observación de la cita
         citasTable.setRowFactory(tv -> {
             TableRow<Cita> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -92,6 +96,7 @@ public class ClienteEECitas extends Controller implements Initializable {
     }
 
     private void onEditCita(Cita cita) {
+        // Editar la observación de la cita
         TextInputDialog dialog = new TextInputDialog(cita.getObservacion());
         dialog.setTitle("Editar Observación");
         dialog.setHeaderText("Editar Observación de la Cita");
@@ -106,6 +111,7 @@ public class ClienteEECitas extends Controller implements Initializable {
     }
 
     private void onDeleteCita(Cita cita) {
+        // Eliminar la cita seleccionada
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Eliminar Cita");
         alert.setHeaderText("Estas seguro que deseas eliminar esta cita?");
@@ -126,6 +132,7 @@ public class ClienteEECitas extends Controller implements Initializable {
 
     @FXML
     private void onVolver() {
+        // Volver a la escena anterior
         try {
             App.currentController.changeScene(Scenes.CLIENTELISTA, null);
         } catch (Exception e) {
@@ -135,9 +142,11 @@ public class ClienteEECitas extends Controller implements Initializable {
 
     @Override
     public void onOpen(Object input) {
+        // Método llamado al abrir la vista
     }
 
     @Override
     public void onClose(Object output) {
+        // Método llamado al cerrar la vista
     }
 }

@@ -14,7 +14,7 @@
       <Label layoutX="100.0" layoutY="148.0" text="Hora:" />
       <Spinner fx:id="horaSpinner" layoutX="200.0" layoutY="148.0" prefHeight="26.0" prefWidth="175.0" />
       <Label layoutX="100.0" layoutY="188.0" text="Observación:" />
-      <TextField fx:id="observacionField" layoutX="200.0" layoutY="188.0" prefHeight="58.0" prefWidth="175.0" />
+      <TextField fx:id="observacionField" layoutX="200.0" layoutY="188.0" prefHeight="17.0" prefWidth="175.0" />
       <Button layoutX="459.0" layoutY="108.0" onAction="#onVolver" text="Volver" />
       <Button fx:id="createCitaButton" layoutX="265.0" layoutY="271.0" text="Crear Cita" />
    </children>

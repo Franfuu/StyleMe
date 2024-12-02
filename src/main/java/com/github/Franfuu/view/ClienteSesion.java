@@ -16,25 +16,29 @@ import java.util.ResourceBundle;
 public class ClienteSesion extends Controller implements Initializable {
 
     @FXML
-    private TextField emailField;
+    private TextField emailField; // Campo de texto para el correo electrónico
 
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passwordField; // Campo de texto para la contraseña
 
     @Override
     public void onOpen(Object input) throws Exception {
+        // Método llamado al abrir la vista
     }
 
     @Override
     public void onClose(Object output) {
+        // Método llamado al cerrar la vista
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Método llamado automáticamente después de cargar el archivo FXML
     }
 
     @FXML
     private void onLogin() {
+        // Método llamado al hacer clic en el botón de inicio de sesión
         String email = emailField.getText();
         String password = passwordField.getText();
 
@@ -47,9 +51,7 @@ public class ClienteSesion extends Controller implements Initializable {
         Cliente cliente = clienteDAO.findByEmailAndPassword(email, password);
 
         if (cliente != null) {
-
             ControlSesion.getInstance().setLoggedInClienteId(cliente.getId());
-
             showAlert("Sesión Iniciada", "Sesión iniciada correctamente.");
             try {
                 App.currentController.changeScene(Scenes.CLIENTELISTA, cliente.getNombre());
@@ -63,6 +65,7 @@ public class ClienteSesion extends Controller implements Initializable {
 
     @FXML
     private void onRegister() {
+        // Método llamado al hacer clic en el botón de registro
         try {
             App.currentController.changeScene(Scenes.REGCLI, null);
         } catch (Exception e) {
@@ -72,6 +75,7 @@ public class ClienteSesion extends Controller implements Initializable {
 
     @FXML
     private void onBack() {
+        // Método llamado al hacer clic en el botón de volver
         try {
             App.currentController.changeScene(Scenes.ELEGIROL, null);
         } catch (Exception e) {
@@ -80,6 +84,7 @@ public class ClienteSesion extends Controller implements Initializable {
     }
 
     private void showAlert(String title, String message) {
+        // Mostrar una alerta con el título y mensaje especificados
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setContentText(message);

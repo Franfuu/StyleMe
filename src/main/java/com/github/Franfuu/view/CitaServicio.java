@@ -27,10 +27,12 @@ public class CitaServicio extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Cargar los servicios disponibles en el ComboBox
         loadServicios();
     }
 
     private void loadServicios() {
+        // Obtener todos los servicios desde el DAO y cargarlos en el ComboBox
         ServicioDAO servicioDAO = new ServicioDAO();
         List<Servicio> servicios = servicioDAO.findAll();
         ObservableList<Servicio> servicioList = FXCollections.observableArrayList(servicios);
@@ -39,16 +41,16 @@ public class CitaServicio extends Controller implements Initializable {
 
     @FXML
     private void onAddService() {
+        // Añadir el servicio seleccionado a la cita
         Servicio selectedServicio = servicioComboBox.getSelectionModel().getSelectedItem();
         if (selectedServicio == null) {
             showAlert("Error", "Debe seleccionar un servicio.");
             return;
         }
-       if (isServicioInCita(selectedCita.getId(), selectedServicio.getId())) {
+        if (isServicioInCita(selectedCita.getId(), selectedServicio.getId())) {
             showAlert("Error", "El servicio ya está añadido a la cita.");
             return;
         }
-
 
         Cita_ServicioDAO.insertServicioEnCita(selectedCita.getId(), selectedServicio.getId());
         showAlert("Éxito", "Servicio añadido a la cita exitosamente.");
@@ -56,6 +58,7 @@ public class CitaServicio extends Controller implements Initializable {
 
     @FXML
     private void onVolver() {
+        // Volver a la escena anterior
         try {
             App.currentController.changeScene(Scenes.PELUCITA, null);
         } catch (Exception e) {
@@ -64,6 +67,7 @@ public class CitaServicio extends Controller implements Initializable {
     }
 
     private void showAlert(String title, String message) {
+        // Mostrar una alerta con el título y mensaje especificados
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setContentText(message);
@@ -72,6 +76,7 @@ public class CitaServicio extends Controller implements Initializable {
 
     @Override
     public void onOpen(Object input) throws Exception {
+        // Abrir la vista con la cita seleccionada
         if (input instanceof Cita) {
             selectedCita = (Cita) input;
         }
@@ -79,5 +84,6 @@ public class CitaServicio extends Controller implements Initializable {
 
     @Override
     public void onClose(Object output) {
+        // Método llamado cuando se cierra la vista
     }
 }
