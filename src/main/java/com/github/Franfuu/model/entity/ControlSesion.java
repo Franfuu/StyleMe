@@ -5,7 +5,6 @@ public class ControlSesion {
     private int loggedInClienteId;
 
     private ControlSesion() {
-        // Constructor privado para el patrón Singleton
     }
 
     public static ControlSesion getInstance() {

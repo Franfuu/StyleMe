@@ -15,15 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDAO {
+    // Consulta SQL para recuperar todos los clientes
     private static final String FINDALL = "SELECT * FROM cliente";
+    // Consulta SQL para buscar un cliente por su ID
     private static final String FINDBYID = "SELECT * FROM cliente WHERE Id=?";
+    // Consulta SQL para insertar un nuevo cliente
     private static final String INSERT = "INSERT INTO cliente (Nombre, Apellido, Telefono, Correo, Genero, Contraseña) VALUES (?,?,?,?,?,?)";
+    // Consulta SQL para actualizar un cliente existente
     private static final String UPDATE = "UPDATE cliente SET Nombre=?, Apellido=?, Telefono=?, Correo=?, Genero=?, Contraseña=? WHERE Id=?";
+    // Consulta SQL para eliminar un cliente por su ID
     private static final String DELETE = "DELETE FROM cliente WHERE Id=?";
 
     public ClienteDAO() {
     }
 
+    // Guarda un nuevo cliente en la base de datos
     public Cliente save(Cliente entity) {
         Cliente result = new Cliente();
         if (entity == null || entity.getId() != 0) return result;
@@ -44,6 +50,8 @@ public class ClienteDAO {
         }
         return result;
     }
+
+    // Busca un cliente por su ID
     public Cliente findById(int Id) {
         Cliente result = null;
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYID)) {
@@ -66,8 +74,10 @@ public class ClienteDAO {
         return result;
     }
 
+    // Consulta SQL para buscar un cliente por su correo y contraseña
     private static final String FIND_BY_EMAIL_AND_PASSWORD = "SELECT * FROM cliente WHERE Correo = ? AND Contraseña = ?";
 
+    // Busca un cliente por su correo y contraseña
     public Cliente findByEmailAndPassword(String email, String password) {
         Cliente cliente = null;
         try (Connection conn = ConnectionMariaDB.getConnection();
@@ -92,6 +102,7 @@ public class ClienteDAO {
         return cliente;
     }
 
+    // Hashea la contraseña usando SHA-256
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -107,6 +118,7 @@ public class ClienteDAO {
         }
     }
 
+    // Actualiza un cliente existente en la base de datos
     public Cliente update(Cliente entity) {
         Cliente result = new Cliente();
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE)) {
@@ -124,6 +136,7 @@ public class ClienteDAO {
         return result;
     }
 
+    // Elimina un cliente de la base de datos por su ID
     public boolean delete(int Id) throws SQLException {
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
             pst.setInt(1, Id);
@@ -132,6 +145,7 @@ public class ClienteDAO {
         }
     }
 
+    // Recupera todos los clientes de la base de datos
     public static List<Cliente> findAll() {
         List<Cliente> result = new ArrayList<> ();
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDALL)) {
@@ -153,10 +167,12 @@ public class ClienteDAO {
         return result;
     }
 
+    // Crea una nueva instancia del DAO
     public static ClienteDAO build() {
         return new ClienteDAO();
     }
 
+    // Verifica si un correo ya está registrado en la base de datos
     public boolean emailExists(String email) {
         String query = "SELECT COUNT(*) FROM cliente WHERE Correo = ?";
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(query)) {
@@ -172,6 +188,7 @@ public class ClienteDAO {
         return false;
     }
 
+    // Verifica si un número de teléfono ya está registrado en la base de datos
     public boolean phoneExists(String phone) {
         String query = "SELECT COUNT(*) FROM cliente WHERE Telefono = ?";
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(query)) {

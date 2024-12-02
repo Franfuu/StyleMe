@@ -16,28 +16,33 @@ import java.util.ResourceBundle;
 public class PeluqueroSesion extends Controller implements Initializable {
 
     @FXML
-    private TextField emailField;
+    private TextField emailField; // Campo de texto para el correo electrónico
 
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passwordField; // Campo de texto para la contraseña
 
     @Override
     public void onOpen(Object input) throws Exception {
+        // Método llamado cuando se abre la vista
     }
 
     @Override
     public void onClose(Object output) {
+        // Método llamado cuando se cierra la vista
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Inicializar el controlador
     }
 
     @FXML
     private void onLogin() throws Exception {
+        // Método llamado al hacer clic en el botón de inicio de sesión
         String email = emailField.getText();
         String password = passwordField.getText();
 
+        // Validar que los campos no estén vacíos
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Error", "No puedes dejar campos vacíos.");
             return;
@@ -46,6 +51,7 @@ public class PeluqueroSesion extends Controller implements Initializable {
         PeluqueroDAO peluqueroDAO = new PeluqueroDAO();
         Peluquero peluquero = peluqueroDAO.findByEmailAndPassword(email, password);
 
+        // Verificar las credenciales del peluquero
         if (peluquero != null) {
             ControlSesion.getInstance().setLoggedInClienteId(peluquero.getId());
             showAlert("Sesión Iniciada", "Sesión iniciada correctamente.");
@@ -57,6 +63,7 @@ public class PeluqueroSesion extends Controller implements Initializable {
 
     @FXML
     private void onRegister() {
+        // Método llamado al hacer clic en el botón de registro
         try {
             App.currentController.changeScene(Scenes.REGPELU, null);
         } catch (Exception e) {
@@ -66,6 +73,7 @@ public class PeluqueroSesion extends Controller implements Initializable {
 
     @FXML
     private void onBack() {
+        // Método llamado al hacer clic en el botón de volver
         try {
             App.currentController.changeScene(Scenes.ELEGIROL, null);
         } catch (Exception e) {
@@ -74,6 +82,7 @@ public class PeluqueroSesion extends Controller implements Initializable {
     }
 
     private void showAlert(String title, String message) {
+        // Mostrar una alerta con el título y mensaje especificados
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setContentText(message);

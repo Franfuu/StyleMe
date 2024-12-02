@@ -18,19 +18,21 @@ import java.util.ResourceBundle;
 public class EditarEliminarServicio extends Controller implements Initializable {
 
     @FXML
-    private ComboBox<Servicio> servicioComboBox;
+    private ComboBox<Servicio> servicioComboBox; // ComboBox to select a service
     @FXML
-    private TextField nombreField;
+    private TextField nombreField; // TextField to input the service name
     @FXML
-    private TextField precioField;
+    private TextField precioField; // TextField to input the service price
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Initialize the controller and load services into the ComboBox
         loadServicios();
         servicioComboBox.setOnAction(event -> loadServicioDetails());
     }
 
     private void loadServicios() {
+        // Load all services from the database and set them in the ComboBox
         ServicioDAO servicioDAO = new ServicioDAO();
         List<Servicio> servicios = servicioDAO.findAll();
         ObservableList<Servicio> servicioList = FXCollections.observableArrayList(servicios);
@@ -38,6 +40,7 @@ public class EditarEliminarServicio extends Controller implements Initializable 
     }
 
     private void loadServicioDetails() {
+        // Load the details of the selected service into the TextFields
         Servicio selectedServicio = servicioComboBox.getSelectionModel().getSelectedItem();
         if (selectedServicio != null) {
             nombreField.setText(selectedServicio.getNombre());
@@ -47,6 +50,7 @@ public class EditarEliminarServicio extends Controller implements Initializable 
 
     @FXML
     private void onEditarServicio() {
+        // Edit the selected service with the new details from the TextFields
         Servicio selectedServicio = servicioComboBox.getSelectionModel().getSelectedItem();
         if (selectedServicio == null) {
             showAlert("Error", "Debe seleccionar un servicio.");
@@ -72,6 +76,7 @@ public class EditarEliminarServicio extends Controller implements Initializable 
 
     @FXML
     private void onEliminarServicio() {
+        // Delete the selected service from the database
         Servicio selectedServicio = servicioComboBox.getSelectionModel().getSelectedItem();
         if (selectedServicio == null) {
             showAlert("Error", "Debe seleccionar un servicio.");
@@ -87,6 +92,7 @@ public class EditarEliminarServicio extends Controller implements Initializable 
 
     @FXML
     private void onVolver() {
+        // Go back to the previous scene
         try {
             App.currentController.changeScene(Scenes.PELUCITA, null);
         } catch (Exception e) {
@@ -95,6 +101,7 @@ public class EditarEliminarServicio extends Controller implements Initializable 
     }
 
     private void showAlert(String title, String message) {
+        // Show an alert with the specified title and message
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setContentText(message);
@@ -103,9 +110,11 @@ public class EditarEliminarServicio extends Controller implements Initializable 
 
     @Override
     public void onOpen(Object input) throws Exception {
+        // Method called when the view is opened
     }
 
     @Override
     public void onClose(Object output) {
+        // Method called when the view is closed
     }
 }
