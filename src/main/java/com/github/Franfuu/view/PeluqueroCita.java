@@ -64,7 +64,7 @@ public class PeluqueroCita extends Controller implements Initializable {
             });
             cita.setAcciones(deleteButton);
 
-            Button addServiceButton = new Button("Añadir Servicio");
+            Button addServiceButton = new Button("Añadir");
             addServiceButton.setOnAction(event -> onAddService(cita));
             cita.setServicios(addServiceButton);
 

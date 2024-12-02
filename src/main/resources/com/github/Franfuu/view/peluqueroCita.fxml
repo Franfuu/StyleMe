@@ -1,48 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.PeluqueroCita">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="black" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.PeluqueroCita">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
     <children>
-        <TableView fx:id="citasTable" layoutX="50.0" layoutY="50.0" prefHeight="400.0" prefWidth="700.0">
+        <TableView fx:id="citasTable" layoutX="4.0" layoutY="33.0" prefHeight="294.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="fechaColumn" prefWidth="150.0" text="Fecha">
+                <TableColumn fx:id="fechaColumn" prefWidth="95.20001220703125" text="Fecha">
                     <cellValueFactory>
                         <PropertyValueFactory property="fecha" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="horaColumn" prefWidth="150.0" text="Hora">
+                <TableColumn fx:id="horaColumn" prefWidth="56.79998779296875" text="Hora">
                     <cellValueFactory>
                         <PropertyValueFactory property="hora" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="observacionColumn" prefWidth="300.0" text="Observación">
+                <TableColumn fx:id="observacionColumn" prefWidth="129.60003662109375" text="Observación">
                     <cellValueFactory>
                         <PropertyValueFactory property="observacion" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="accionesColumn" prefWidth="100.0" text="Acciones">
+                <TableColumn fx:id="accionesColumn" prefWidth="83.199951171875" text="Acciones">
                     <cellValueFactory>
                         <PropertyValueFactory property="acciones" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="serviciosColumn" prefWidth="100.0" text="Servicios">
+                <TableColumn fx:id="serviciosColumn" prefWidth="93.60003662109375" text="Servicios">
                     <cellValueFactory>
                         <PropertyValueFactory property="servicios" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="eliminarServicioColumn" prefWidth="150.0" text="Eliminar Servicio">
+                <TableColumn fx:id="eliminarServicioColumn" prefWidth="135.199951171875" text="Eliminar Servicio">
                     <cellValueFactory>
                         <PropertyValueFactory property="eliminarServicio" />
                     </cellValueFactory>
                 </TableColumn>
             </columns>
         </TableView>
-        <Button layoutX="50.0" layoutY="500.0" mnemonicParsing="false" onAction="#onCrearServicio" text="Crear Servicio" />
-        <Button layoutX="200.0" layoutY="500.0" mnemonicParsing="false" onAction="#onEditarEliminarServicio" text="Editar/Eliminar Servicio" />
+        <Button layoutX="75.0" layoutY="350.0" mnemonicParsing="false" onAction="#onCrearServicio" text="Crear Servicio" />
+        <Button layoutX="345.0" layoutY="350.0" mnemonicParsing="false" onAction="#onEditarEliminarServicio" text="Editar/Eliminar Servicio" />
     </children>
 </AnchorPane>
