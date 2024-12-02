@@ -4,7 +4,6 @@ import com.github.Franfuu.App;
 import com.github.Franfuu.model.dao.CitaDAO;
 import com.github.Franfuu.model.entity.Cita;
 import com.github.Franfuu.model.entity.ControlSesion;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -94,9 +93,9 @@ public class ClienteEECitas extends Controller implements Initializable {
 
     private void onEditCita(Cita cita) {
         TextInputDialog dialog = new TextInputDialog(cita.getObservacion());
-        dialog.setTitle("Edit Observation");
-        dialog.setHeaderText("Edit the observation for the appointment");
-        dialog.setContentText("Observation:");
+        dialog.setTitle("Editar Observación");
+        dialog.setHeaderText("Editar Observación de la Cita");
+        dialog.setContentText("Observación:");
 
         dialog.showAndWait().ifPresent(observacion -> {
             cita.setObservacion(observacion);

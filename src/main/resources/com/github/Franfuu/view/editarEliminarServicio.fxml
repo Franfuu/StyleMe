@@ -5,13 +5,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.EditarEliminarServicio">
-    <children>
-        <ComboBox fx:id="servicioComboBox" layoutX="100.0" layoutY="50.0" prefWidth="400.0" promptText="Seleccione un servicio" />
-        <TextField fx:id="nombreField" layoutX="100.0" layoutY="100.0" prefWidth="400.0" promptText="Nombre del servicio" />
-        <TextField fx:id="precioField" layoutX="100.0" layoutY="150.0" prefWidth="400.0" promptText="Precio del servicio" />
-        <Button layoutX="100.0" layoutY="200.0" mnemonicParsing="false" onAction="#onEditarServicio" text="Editar Servicio" />
-        <Button layoutX="250.0" layoutY="200.0" mnemonicParsing="false" onAction="#onEliminarServicio" text="Eliminar Servicio" />
-        <Button layoutX="400.0" layoutY="200.0" mnemonicParsing="false" onAction="#onVolver" text="Volver" />
-    </children>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.EditarEliminarServicio">
+   <children>
+      <ComboBox fx:id="servicioComboBox" layoutX="100.0" layoutY="98.0" prefWidth="400.0" promptText="Seleccione un servicio" />
+      <TextField fx:id="nombreField" layoutX="100.0" layoutY="148.0" prefWidth="400.0" promptText="Nombre del servicio" />
+      <TextField fx:id="precioField" layoutX="100.0" layoutY="198.0" prefWidth="400.0" promptText="Precio del servicio" />
+      <Button layoutX="100.0" layoutY="248.0" mnemonicParsing="false" onAction="#onEditarServicio" text="Editar Servicio" />
+      <Button layoutX="396.0" layoutY="248.0" mnemonicParsing="false" onAction="#onEliminarServicio" text="Eliminar Servicio" />
+      <Button layoutX="500.0" layoutY="45.0" mnemonicParsing="false" onAction="#onVolver" text="Volver" />
+   </children>
 </AnchorPane>

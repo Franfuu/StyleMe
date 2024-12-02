@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.Button?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.github.Franfuu.view.ClienteLista"
-            prefHeight="400.0" prefWidth="600.0">
-    <children>
-        <Label fx:id="clientNameLabel" layoutX="20.0" layoutY="20.0" text="Client Name" />
-        <TableView fx:id="peluqueroTable" layoutX="20.0" layoutY="60.0" prefHeight="300.0" prefWidth="560.0">
-            <columns>
-                <TableColumn fx:id="nameColumn" text="Name" prefWidth="180.0" />
-                <TableColumn fx:id="specialtyColumn" text="Specialty" prefWidth="180.0" />
-                <TableColumn fx:id="phoneColumn" text="Phone" prefWidth="180.0" />
-            </columns>
-        </TableView>
-        <Button fx:id="showAppointmentsButton" text="Show Appointments" onAction="#onEECitas"/>
-    </children>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Franfuu.view.ClienteLista">
+   <children>
+      <TableView fx:id="peluqueroTable" layoutX="20.0" layoutY="28.0" prefHeight="300.0" prefWidth="560.0">
+         <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="180.0" text="Nombre" />
+            <TableColumn fx:id="specialtyColumn" prefWidth="180.0" text="Especialidad" />
+            <TableColumn fx:id="phoneColumn" prefWidth="199.20001220703125" text="Telefono" />
+         </columns>
+      </TableView>
+      <Button fx:id="showAppointmentsButton" layoutX="268.0" layoutY="346.0" onAction="#onEECitas" text="Ver Citas" />
+   </children>
 </AnchorPane>
